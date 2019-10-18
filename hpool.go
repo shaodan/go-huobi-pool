@@ -13,7 +13,7 @@ func (p *HPSubAccount) ListRecord(page, size int) {
 		"page":       strconv.Itoa(page),
 		"size":       strconv.Itoa(size),
 	}
-	request("GET", p.user.secretKey, "/open/api/user/v1/get-hash-rate", params)
+	request("GET", p.user.secretKey, "/open/api/account/v1/list-record", params)
 }
 
 // 查询子账号的实时算力
@@ -23,6 +23,24 @@ func (p *HPSubAccount) GetHashRate() {
 		"sub_code":   p.subCode,
 	}
 	request("GET", p.user.secretKey, "/open/api/user/v1/get-hash-rate", params)
+}
+
+// 查询子账号的矿工统计
+func (p *HPSubAccount) GetWorkerStats() (*WorkerStats, error) {
+	params := map[string]string{
+		"access_key": p.user.accessKey,
+		"sub_code":   p.subCode,
+	}
+	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-worker-stats", params)
+	if err != nil {
+		return nil, err
+	}
+	r := WorkerStatsResult{}
+	err = json.Unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return &r.Data, nil
 }
 
 // 今日预估收益

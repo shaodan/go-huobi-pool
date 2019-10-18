@@ -26,6 +26,13 @@ func TestGetTodayProfitV2(t *testing.T) {
 	assert.NotEmpty(t, data)
 }
 
+func TestGetWorkerStats(t *testing.T) {
+	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
+	data, err := account.GetWorkerStats()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, data.Currency)
+}
+
 func TestChangeCoin(t *testing.T) {
 	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
 	success, err := account.ChangeCoin("bch")

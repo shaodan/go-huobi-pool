@@ -11,6 +11,14 @@ type TodayProfit struct {
 	Amount   float64 `json:"amount"`
 }
 
+type WorkerStats struct {
+	Currency string `json:"currency"`
+	Active   int64  `json:"workers_active,string"`
+	Dead     int64  `json:"workers_dead,string"`
+	Inactive int64  `json:"workers_inactive,string"`
+	Total    int64  `json:"workers_total,string"`
+}
+
 type TodayProfitResult struct {
 	result
 	Data TodayProfit `json:"data"`
@@ -19,6 +27,11 @@ type TodayProfitResult struct {
 type TodayProfitResultV2 struct {
 	result
 	Data []TodayProfit `json:"data"`
+}
+
+type WorkerStatsResult struct {
+	result
+	Data WorkerStats `json:"data"`
 }
 
 type ChangeCoinResult struct {
