@@ -6,14 +6,19 @@ type result struct {
 	Message string `json:"message"`
 }
 
-type TodayProfitData struct {
+type TodayProfit struct {
 	Currency string  `json:"currency"`
 	Amount   float64 `json:"amount"`
 }
 
 type TodayProfitResult struct {
 	result
-	Data TodayProfitData `json:"data"`
+	Data TodayProfit `json:"data"`
+}
+
+type TodayProfitResultV2 struct {
+	result
+	Data []TodayProfit `json:"data"`
 }
 
 type ChangeCoinResult struct {

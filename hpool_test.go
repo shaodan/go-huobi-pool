@@ -13,14 +13,21 @@ var (
 )
 
 func TestGetTodayProfit(t *testing.T) {
-	account := New(AccessKey, SecretKey).Sub(SubCode)
+	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
 	data, err := account.GetTodayProfit()
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 	assert.True(t, data.Amount >= 0)
 }
 
+func TestGetTodayProfitV2(t *testing.T) {
+	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
+	data, err := account.GetTodayProfitV2()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, data)
+}
+
 func TestChangeCoin(t *testing.T) {
-	account := New(AccessKey, SecretKey).Sub(SubCode)
+	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
 	success, err := account.ChangeCoin("bch")
 	assert.Nil(t, err)
 	assert.True(t, success)

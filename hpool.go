@@ -5,20 +5,6 @@ import (
 	"strconv"
 )
 
-func New(accessKey, secretKey string) *HPUser {
-	return &HPUser{
-		accessKey: accessKey,
-		secretKey: secretKey,
-	}
-}
-
-func (u *HPUser) Sub(subCode string) *HPSubAccount {
-	return &HPSubAccount{
-		user:    u,
-		subCode: subCode,
-	}
-}
-
 // 分页查询子账号的收益明细
 func (p *HPSubAccount) ListRecord(page, size int) {
 	params := map[string]string{
@@ -40,7 +26,7 @@ func (p *HPSubAccount) GetHashRate() {
 }
 
 // 今日预估收益
-func (p *HPSubAccount) GetTodayProfit() (*TodayProfitData, error) {
+func (p *HPSubAccount) GetTodayProfit() (*TodayProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -55,6 +41,24 @@ func (p *HPSubAccount) GetTodayProfit() (*TodayProfitData, error) {
 		return nil, err
 	}
 	return &r.Data, nil
+}
+
+// 今日预估收益V2
+func (p *HPSubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
+	params := map[string]string{
+		"access_key": p.user.accessKey,
+		"sub_code":   p.subCode,
+	}
+	res, err := request("GET", p.user.secretKey, "/open/api/user/v2/get-today-profit", params)
+	if err != nil {
+		return nil, err
+	}
+	r := TodayProfitResultV2{}
+	err = json.Unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return r.Data, nil
 }
 
 // 切换挖矿币种
