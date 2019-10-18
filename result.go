@@ -1,9 +1,25 @@
 package hpool
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 type result struct {
 	Code    int    `json:"code"`
 	Success bool   `json:"success"`
 	Message string `json:"message"`
+}
+
+func (r *result) Unmarshal(data []byte) error {
+	err := json.Unmarshal(data, r)
+	if err != nil {
+		return err
+	}
+	if r.Success {
+		return nil
+	}
+	return fmt.Errorf("HuobiPool error %d: %s", r.Code, r.Message)
 }
 
 type TodayProfit struct {

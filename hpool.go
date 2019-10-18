@@ -1,7 +1,6 @@
 package hpool
 
 import (
-	"encoding/json"
 	"strconv"
 )
 
@@ -36,7 +35,7 @@ func (p *HPSubAccount) GetWorkerStats() (*WorkerStats, error) {
 		return nil, err
 	}
 	r := WorkerStatsResult{}
-	err = json.Unmarshal(res, &r)
+	err = r.Unmarshal(res)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +53,7 @@ func (p *HPSubAccount) GetTodayProfit() (*TodayProfit, error) {
 		return nil, err
 	}
 	r := TodayProfitResult{}
-	err = json.Unmarshal(res, &r)
+	err = r.Unmarshal(res)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +71,7 @@ func (p *HPSubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 		return nil, err
 	}
 	r := TodayProfitResultV2{}
-	err = json.Unmarshal(res, &r)
+	err = r.Unmarshal(res)
 	if err != nil {
 		return nil, err
 	}
@@ -91,9 +90,9 @@ func (p *HPSubAccount) ChangeCoin(coin string) (bool, error) {
 		return false, err
 	}
 	r := ChangeCoinResult{}
-	err = json.Unmarshal(res, &r)
+	err = r.Unmarshal(res)
 	if err != nil {
 		return false, err
 	}
-	return r.Success, nil
+	return true, nil
 }
