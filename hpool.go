@@ -35,7 +35,7 @@ func (p *HPSubAccount) GetWorkerStats() (*WorkerStats, error) {
 		return nil, err
 	}
 	r := WorkerStatsResult{}
-	err = r.Unmarshal(res)
+	err = unmarshal(res, &r)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (p *HPSubAccount) GetTodayProfit() (*TodayProfit, error) {
 		return nil, err
 	}
 	r := TodayProfitResult{}
-	err = r.Unmarshal(res)
+	err = unmarshal(res, &r)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (p *HPSubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 		return nil, err
 	}
 	r := TodayProfitResultV2{}
-	err = r.Unmarshal(res)
+	err = unmarshal(res, &r)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (p *HPSubAccount) ChangeCoin(coin string) (bool, error) {
 		return false, err
 	}
 	r := ChangeCoinResult{}
-	err = r.Unmarshal(res)
+	err = unmarshal(res, &r)
 	if err != nil {
 		return false, err
 	}

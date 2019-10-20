@@ -5,21 +5,29 @@ import (
 	"fmt"
 )
 
+type Result interface {
+	Error() error
+}
+
 type result struct {
 	Code    int    `json:"code"`
 	Success bool   `json:"success"`
 	Message string `json:"message"`
 }
 
-func (r *result) Unmarshal(data []byte) error {
-	err := json.Unmarshal(data, r)
-	if err != nil {
-		return err
-	}
+func (r *result) Error() error {
 	if r.Success {
 		return nil
 	}
-	return fmt.Errorf("HuobiPool error %d: %s", r.Code, r.Message)
+	return fmt.Errorf("HuobiPool %d: %s", r.Code, r.Message)
+}
+
+func unmarshal(data []byte, value Result) error {
+	err := json.Unmarshal(data, value)
+	if err != nil {
+		return err
+	}
+	return value.Error()
 }
 
 type TodayProfit struct {
