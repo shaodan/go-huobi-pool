@@ -30,7 +30,13 @@ func TestGetHashRates(t *testing.T) {
 	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
 	data, err := account.GetHashRate()
 	assert.NoError(t, err)
-	assert.NotEmpty(t, data)
+	if assert.NotEmpty(t, data) {
+		assert.GreaterOrEqual(t, data.Speed15m, 0.0)
+		assert.GreaterOrEqual(t, data.Speed1h, 0.0)
+		assert.GreaterOrEqual(t, data.Speed1d, 0.0)
+		assert.GreaterOrEqual(t, data.Reject15m, 0.0)
+		assert.Less(t, data.Reject15m, 1.0)
+	}
 }
 
 func TestChangeCoin(t *testing.T) {

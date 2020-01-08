@@ -44,16 +44,16 @@ type WorkerStats struct {
 }
 
 type HashRates struct {
-	Currency  string      `json:"currency"`
-	Speed15m  json.Number `json:"speed_f"`
-	Speed1h   json.Number `json:"speed_s"`
-	Speed1d   json.Number `json:"speed_t"`
-	Unit15m   string      `json:"unit_f"`
-	Unit1h    string      `json:"unit_s"`
-	Unit1d    string      `json:"unit_t"`
-	Reject15m json.Number `json:"reject_f"`
-	Reject1h  json.Number `json:"reject_s"`
-	Reject1d  json.Number `json:"reject_t"`
+	Currency  string  `json:"currency"`
+	Speed15m  float64 `json:"speed_f,string"`
+	Speed1h   float64 `json:"speed_s,string"`
+	Speed1d   float64 `json:"speed_t,string"`
+	Unit15m   string  `json:"unit_f"`
+	Unit1h    string  `json:"unit_s"`
+	Unit1d    string  `json:"unit_t"`
+	Reject15m float64 `json:"reject_f,string"`
+	Reject1h  float64 `json:"reject_s,string"`
+	Reject1d  float64 `json:"reject_t,string"`
 }
 
 type TodayProfitResult struct {
