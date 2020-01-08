@@ -1,24 +1,24 @@
 package hpool
 
-type HPUser struct {
+type User struct {
 	accessKey string
 	secretKey string
 }
 
-type HPSubAccount struct {
-	user    *HPUser
+type SubAccount struct {
+	user    *User
 	subCode string
 }
 
-func NewUser(accessKey, secretKey string) *HPUser {
-	return &HPUser{
+func NewUser(accessKey, secretKey string) *User {
+	return &User{
 		accessKey: accessKey,
 		secretKey: secretKey,
 	}
 }
 
-func (u *HPUser) Sub(subCode string) *HPSubAccount {
-	return &HPSubAccount{
+func (u *User) Sub(subCode string) *SubAccount {
+	return &SubAccount{
 		user:    u,
 		subCode: subCode,
 	}

@@ -5,7 +5,7 @@ import (
 )
 
 // 分页查询子账号的收益明细
-func (p *HPSubAccount) ListRecord(page, size int) {
+func (p *SubAccount) ListRecord(page, size int) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -16,7 +16,7 @@ func (p *HPSubAccount) ListRecord(page, size int) {
 }
 
 // 查询子账号的实时算力
-func (p *HPSubAccount) GetHashRate() {
+func (p *SubAccount) GetHashRate() {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -25,7 +25,7 @@ func (p *HPSubAccount) GetHashRate() {
 }
 
 // 查询子账号的矿工统计
-func (p *HPSubAccount) GetWorkerStats() (*WorkerStats, error) {
+func (p *SubAccount) GetWorkerStats() (*WorkerStats, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -43,7 +43,7 @@ func (p *HPSubAccount) GetWorkerStats() (*WorkerStats, error) {
 }
 
 // 今日预估收益
-func (p *HPSubAccount) GetTodayProfit() (*TodayProfit, error) {
+func (p *SubAccount) GetTodayProfit() (*TodayProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -61,7 +61,7 @@ func (p *HPSubAccount) GetTodayProfit() (*TodayProfit, error) {
 }
 
 // 今日预估收益V2
-func (p *HPSubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
+func (p *SubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
@@ -79,7 +79,7 @@ func (p *HPSubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 }
 
 // 切换挖矿币种
-func (p *HPSubAccount) ChangeCoin(coin string) (bool, error) {
+func (p *SubAccount) ChangeCoin(coin string) (bool, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,

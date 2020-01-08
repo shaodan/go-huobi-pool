@@ -1,2 +1,2 @@
-# go-huobipool
-go sdk for huobipool
+# go-huobi-pool
+go sdk for huobi pool
