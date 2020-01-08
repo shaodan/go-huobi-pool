@@ -106,3 +106,25 @@ func (p *SubAccount) ChangeCoin(coin string) (bool, error) {
 	}
 	return true, nil
 }
+
+// 查询子账号下的矿工
+func (p *SubAccount) GetWorkers() (*WorkerList, error) {
+	params := map[string]string{
+		"access_key": p.user.accessKey,
+		"sub_code":   p.subCode,
+		"status":     "1",
+		"page":       "1",
+		"size":       "10",
+	}
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v2/get-worker", params)
+	if err != nil {
+		return nil, err
+	}
+	r := WorkersResult{}
+	err = unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return &r.Data, nil
+}

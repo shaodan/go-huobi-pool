@@ -56,6 +56,24 @@ type HashRates struct {
 	Reject1d  float64 `json:"reject_t,string"`
 }
 
+type WorkerList struct {
+	List []struct {
+		Name      string  `json:"worker_name"`
+		Currency  string  `json:"currency"`
+		Speed15m  float64 `json:"hash_rate_15m,string"`
+		Speed1d   float64 `json:"hash_rate_1d,string"`
+		Reject15m float64 `json:"reject15m,string"`
+		Reject1d  float64 `json:"reject1d,string"`
+		LastShare int64   `json:"last_share_time"`
+		Status    int     `json:"status"` // [0:不活跃;1:活跃;2.失效]
+	}
+	Active     int `json:"workers_active"`
+	Inactive   int `json:"workers_inactive"`
+	Pagination struct {
+		Total int `json:"total_count"`
+	} `json:"pagenation"`
+}
+
 type TodayProfitResult struct {
 	result
 	Data TodayProfit `json:"data"`
@@ -78,4 +96,9 @@ type HashRatesResult struct {
 
 type ChangeCoinResult struct {
 	result
+}
+
+type WorkersResult struct {
+	result
+	Data WorkerList `json:"data"`
 }
