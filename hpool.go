@@ -16,12 +16,22 @@ func (p *SubAccount) ListRecord(page, size int) {
 }
 
 // 查询子账号的实时算力
-func (p *SubAccount) GetHashRate() {
+func (p *SubAccount) GetHashRate() (*HashRates, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.subCode,
 	}
-	request("GET", p.user.secretKey, "/open/api/user/v1/get-hash-rate", params)
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v1/get-hash-rate", params)
+	if err != nil {
+		return nil, err
+	}
+	r := HashRatesResult{}
+	err = unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return &r.Data, nil
 }
 
 // 查询子账号的矿工统计

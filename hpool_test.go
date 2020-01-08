@@ -26,11 +26,11 @@ func TestGetTodayProfitV2(t *testing.T) {
 	assert.NotEmpty(t, data)
 }
 
-func TestGetWorkerStats(t *testing.T) {
+func TestGetHashRates(t *testing.T) {
 	account := NewUser(AccessKey, SecretKey).Sub(SubCode)
-	data, err := account.GetWorkerStats()
+	data, err := account.GetHashRate()
 	assert.NoError(t, err)
-	assert.NotEmpty(t, data.Currency)
+	assert.NotEmpty(t, data)
 }
 
 func TestChangeCoin(t *testing.T) {
