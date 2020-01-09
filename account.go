@@ -7,7 +7,8 @@ type User struct {
 
 type SubAccount struct {
 	user    *User
-	subCode string
+	SubName string
+	SubCode string
 }
 
 func NewUser(accessKey, secretKey string) *User {
@@ -17,9 +18,10 @@ func NewUser(accessKey, secretKey string) *User {
 	}
 }
 
-func (u *User) Sub(subCode string) *SubAccount {
+func (u *User) Sub(name, code string) *SubAccount {
 	return &SubAccount{
 		user:    u,
-		subCode: subCode,
+		SubName: name,
+		SubCode: code,
 	}
 }

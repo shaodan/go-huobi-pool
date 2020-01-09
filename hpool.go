@@ -8,7 +8,7 @@ import (
 func (p *SubAccount) ListRecord(page, size int) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 		"page":       strconv.Itoa(page),
 		"size":       strconv.Itoa(size),
 	}
@@ -19,7 +19,7 @@ func (p *SubAccount) ListRecord(page, size int) {
 func (p *SubAccount) GetHashRate() (*HashRates, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 	}
 	res, err := request("GET", p.user.secretKey,
 		"/open/api/user/v1/get-hash-rate", params)
@@ -38,7 +38,7 @@ func (p *SubAccount) GetHashRate() (*HashRates, error) {
 func (p *SubAccount) GetWorkerStats() (*WorkerStats, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 	}
 	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-worker-stats", params)
 	if err != nil {
@@ -56,7 +56,7 @@ func (p *SubAccount) GetWorkerStats() (*WorkerStats, error) {
 func (p *SubAccount) GetTodayProfit() (*TodayProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 	}
 	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-today-profit", params)
 	if err != nil {
@@ -74,7 +74,7 @@ func (p *SubAccount) GetTodayProfit() (*TodayProfit, error) {
 func (p *SubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 	}
 	res, err := request("GET", p.user.secretKey, "/open/api/user/v2/get-today-profit", params)
 	if err != nil {
@@ -92,7 +92,7 @@ func (p *SubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 func (p *SubAccount) ChangeCoin(coin string) (bool, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 		"currency":   coin,
 	}
 	res, err := request("POST", p.user.secretKey, "/open/api/user/v1/change-sub-user-currency", params)
@@ -111,7 +111,7 @@ func (p *SubAccount) ChangeCoin(coin string) (bool, error) {
 func (p *SubAccount) GetWorkers() (*WorkerList, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
-		"sub_code":   p.subCode,
+		"sub_code":   p.SubCode,
 		"status":     "1",
 		"page":       "1",
 		"size":       "10",
