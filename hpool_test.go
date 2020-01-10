@@ -62,3 +62,10 @@ func TestChangeCoin(t *testing.T) {
 	assert.Nil(t, err)
 	assert.True(t, success)
 }
+
+func TestGetTransferProfit(t *testing.T) {
+	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	data, err := account.GetTransferProfit("btc", "2020-01-10")
+	assert.NoError(t, err)
+	assert.NotEmpty(t, data)
+}

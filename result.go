@@ -74,6 +74,11 @@ type WorkerList struct {
 	} `json:"pagenation"`
 }
 
+type TransferProfit struct {
+	Amount    float64 `json:"transfer_amount,string"`
+	HPTAmount float64 `json:"hpt_transfer_amount,string"`
+}
+
 type TodayProfitResult struct {
 	result
 	Data TodayProfit `json:"data"`
@@ -101,4 +106,9 @@ type ChangeCoinResult struct {
 type WorkersResult struct {
 	result
 	Data WorkerList `json:"data"`
+}
+
+type TransferProfitResult struct {
+	result
+	Data TransferProfit `json:"data"`
 }

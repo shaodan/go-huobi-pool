@@ -128,3 +128,24 @@ func (p *SubAccount) GetWorkers() (*WorkerList, error) {
 	}
 	return &r.Data, nil
 }
+
+// 查询用户历史转让的收益
+func (p *SubAccount) GetTransferProfit(currency, date string) (*TransferProfit, error) {
+	params := map[string]string{
+		"access_key": p.user.accessKey,
+		"sub_code":   p.SubCode,
+		"date":       date,
+		"currency":   currency,
+	}
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v1/transfer-profit", params)
+	if err != nil {
+		return nil, err
+	}
+	r := TransferProfitResult{}
+	err = unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return &r.Data, nil
+}
