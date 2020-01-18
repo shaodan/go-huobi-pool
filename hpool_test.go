@@ -7,35 +7,35 @@ import (
 )
 
 var (
-	AccessKey = "your_access_key"
-	SecretKey = "your_secret_key"
-	SubName   = "your_sub_account_name/anything"
-	SubCode   = "your_sub_account_code"
+	accessKey = "your_access_key"
+	secretKey = "your_secret_key"
+	subName   = "your_sub_account_name/anything"
+	subCode   = "your_sub_account_code"
 )
 
 func TestGetTodayProfit(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetTodayProfit()
 	assert.NoError(t, err)
 	assert.True(t, data.Amount >= 0)
 }
 
 func TestGetTodayProfitV2(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetTodayProfitV2()
 	assert.NoError(t, err)
 	assert.NotEmpty(t, data)
 }
 
 func TestGetWorkerStats(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetWorkerStats("btc")
 	assert.NoError(t, err)
 	assert.NotEmpty(t, data.Currency)
 }
 
 func TestGetHashRates(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetHashRate()
 	assert.NoError(t, err)
 	if assert.NotEmpty(t, data) {
@@ -48,7 +48,7 @@ func TestGetHashRates(t *testing.T) {
 }
 
 func TestGetWorkers(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetWorkers()
 	assert.NoError(t, err)
 	if assert.NotEmpty(t, data) {
@@ -64,14 +64,14 @@ func TestGetWorkers(t *testing.T) {
 }
 
 func TestChangeCoin(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	success, err := account.ChangeCoin("bch")
 	assert.Nil(t, err)
 	assert.True(t, success)
 }
 
 func TestGetTransferProfit(t *testing.T) {
-	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
 	data, err := account.GetTransferProfit("btc", "2020-01-10")
 	assert.NoError(t, err)
 	assert.NotEmpty(t, data)
