@@ -27,6 +27,13 @@ func TestGetTodayProfitV2(t *testing.T) {
 	assert.NotEmpty(t, data)
 }
 
+func TestGetWorkerStats(t *testing.T) {
+	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
+	data, err := account.GetWorkerStats("btc")
+	assert.NoError(t, err)
+	assert.NotEmpty(t, data.Currency)
+}
+
 func TestGetHashRates(t *testing.T) {
 	account := NewUser(AccessKey, SecretKey).Sub(SubName, SubCode)
 	data, err := account.GetHashRate()

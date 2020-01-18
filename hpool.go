@@ -35,10 +35,11 @@ func (p *SubAccount) GetHashRate() (*HashRates, error) {
 }
 
 // 查询子账号的矿工统计
-func (p *SubAccount) GetWorkerStats() (*WorkerStats, error) {
+func (p *SubAccount) GetWorkerStats(coin string) (*WorkerStats, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.SubCode,
+		"coin_name":  coin,
 	}
 	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-worker-stats", params)
 	if err != nil {
