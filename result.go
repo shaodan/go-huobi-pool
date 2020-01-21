@@ -75,6 +75,7 @@ type WorkerList struct {
 }
 
 type TransferProfit struct {
+	Speed     float64 `json:"speed,string"`
 	Amount    float64 `json:"transfer_amount,string"`
 	HPTAmount float64 `json:"hpt_transfer_amount,string"`
 }
