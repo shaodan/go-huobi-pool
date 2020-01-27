@@ -42,8 +42,9 @@ func encodeQuery(params map[string]string) string {
 
 func request(method, secretKey, path string, params map[string]string) (res []byte, err error) {
 	if client == nil {
-		client = resty.New()
-		client.SetHostURL("https://openapi.hpt.com")
+		client = resty.New().
+			SetHostURL("https://openapi.hpt.com").
+			SetTimeout(3 * time.Second)
 	}
 	ts := time.Now().UnixNano() / 1e6
 	params["timestamp"] = strconv.FormatInt(ts, 10)
