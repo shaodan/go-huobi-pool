@@ -72,7 +72,15 @@ func TestChangeCoin(t *testing.T) {
 
 func TestGetTransferProfit(t *testing.T) {
 	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
-	data, err := account.GetTransferProfit("btc", "2020-01-10")
+	data, err := account.GetTransferProfit("btc", "2020-02-08")
 	assert.NoError(t, err)
 	assert.NotEmpty(t, data)
+}
+
+func TestGetUnitCurrencyProfits(t *testing.T) {
+	account := NewUser(accessKey, secretKey).Sub(subName, subCode)
+	data, err := account.GetUnitCurrencyProfits("2020-03-10", "btc")
+	if assert.NoError(t, err) {
+		assert.NotEmpty(t, data)
+	}
 }

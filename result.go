@@ -113,3 +113,16 @@ type TransferProfitResult struct {
 	result
 	Data TransferProfit `json:"data"`
 }
+
+type UnitCurrencyProfit struct {
+	Currency     string  `json:"coin_name"`
+	ActualProfit string  `json:"actual_daily_profit"`
+	RawProfit    string  `json:"daily_profit"`
+	NetFee       float64 `json:"net_fee"`
+}
+type UnitCurrencyProfits []UnitCurrencyProfit
+
+type UnitCurrencyProfitResult struct {
+	result
+	Data UnitCurrencyProfits `json:"data"`
+}

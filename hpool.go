@@ -138,7 +138,7 @@ func (p *SubAccount) GetWorkers() (*WorkerList, error) {
 }
 
 // 查询用户历史转让的收益
-func (p *SubAccount) GetTransferProfit(currency, date string) (*TransferProfit, error) {
+func (p *SubAccount) GetTransferProfit(date, currency string) (*TransferProfit, error) {
 	params := map[string]string{
 		"access_key": p.user.accessKey,
 		"sub_code":   p.SubCode,
@@ -156,4 +156,27 @@ func (p *SubAccount) GetTransferProfit(currency, date string) (*TransferProfit, 
 		return nil, err
 	}
 	return &r.Data, nil
+}
+
+// 查询单位理论收益和平均网络手续费
+func (p *SubAccount) GetUnitCurrencyProfits(date, currency string) (UnitCurrencyProfits, error) {
+	params := map[string]string{
+		"access_key": p.user.accessKey,
+		"sub_code":   p.SubCode,
+		"date":       date,
+	}
+	if currency != "" {
+		params["coin_name"] = currency
+	}
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v1/get-user-unit-currency-profit", params)
+	if err != nil {
+		return nil, err
+	}
+	r := UnitCurrencyProfitResult{}
+	err = unmarshal(res, &r)
+	if err != nil {
+		return nil, err
+	}
+	return r.Data, nil
 }
