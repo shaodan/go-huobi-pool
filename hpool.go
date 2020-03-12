@@ -12,7 +12,8 @@ func (p *SubAccount) ListRecord(page, size int) {
 		"page":       strconv.Itoa(page),
 		"size":       strconv.Itoa(size),
 	}
-	request("GET", p.user.secretKey, "/open/api/account/v1/list-record", params)
+	request("GET", p.user.secretKey,
+		"/open/api/account/v1/list-record", params)
 }
 
 // 查询子账号的实时算力
@@ -41,7 +42,8 @@ func (p *SubAccount) GetWorkerStats(coin string) (*WorkerStats, error) {
 		"sub_code":   p.SubCode,
 		"coin_name":  coin,
 	}
-	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-worker-stats", params)
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v1/get-worker-stats", params)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +61,8 @@ func (p *SubAccount) GetTodayProfit() (*TodayProfit, error) {
 		"access_key": p.user.accessKey,
 		"sub_code":   p.SubCode,
 	}
-	res, err := request("GET", p.user.secretKey, "/open/api/user/v1/get-today-profit", params)
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v1/get-today-profit", params)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +80,8 @@ func (p *SubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 		"access_key": p.user.accessKey,
 		"sub_code":   p.SubCode,
 	}
-	res, err := request("GET", p.user.secretKey, "/open/api/user/v2/get-today-profit", params)
+	res, err := request("GET", p.user.secretKey,
+		"/open/api/user/v2/get-today-profit", params)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +100,8 @@ func (p *SubAccount) ChangeCoin(coin string) (bool, error) {
 		"sub_code":   p.SubCode,
 		"currency":   coin,
 	}
-	res, err := request("POST", p.user.secretKey, "/open/api/user/v1/change-sub-user-currency", params)
+	res, err := request("POST", p.user.secretKey,
+		"/open/api/user/v1/change-sub-user-currency", params)
 	if err != nil {
 		return false, err
 	}
