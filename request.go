@@ -12,7 +12,9 @@ import (
 )
 
 var (
-	client *resty.Client
+	client = resty.New().
+		SetHostURL("https://openapi.hpt.com").
+		SetTimeout(5 * time.Second)
 )
 
 func encodeQuery(params map[string]string) string {
@@ -41,11 +43,6 @@ func encodeQuery(params map[string]string) string {
 }
 
 func request(method, secretKey, path string, params map[string]string) (res []byte, err error) {
-	if client == nil {
-		client = resty.New().
-			SetHostURL("https://openapi.hpt.com").
-			SetTimeout(3 * time.Second)
-	}
 	ts := time.Now().UnixNano() / 1e6
 	params["timestamp"] = strconv.FormatInt(ts, 10)
 	query := encodeQuery(params)
@@ -58,13 +55,15 @@ func request(method, secretKey, path string, params map[string]string) (res []by
 		resp, err = req.SetQueryString(fullQuery).Get(path)
 	case "POST":
 		params["sign"] = sign
-		body, err := json.Marshal(params)
+		var body []byte
+		body, err = json.Marshal(params)
 		if err != nil {
-			return nil, err
+			err = errors.New("marshal params error" + err.Error())
+		} else {
+			resp, err = req.SetHeader("Content-Type", "application/json").
+				SetBody(body).
+				Post(path)
 		}
-		resp, err = req.SetHeader("Content-Type", "application/json").
-			SetBody(body).
-			Post(path)
 	default:
 		err = errors.New("unmatched http method: " + method)
 	}

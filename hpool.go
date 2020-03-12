@@ -1,6 +1,8 @@
 package hpool
 
 import (
+	"errors"
+	"fmt"
 	"strconv"
 )
 
@@ -88,7 +90,7 @@ func (p *SubAccount) GetTodayProfitV2() ([]TodayProfit, error) {
 	r := TodayProfitResultV2{}
 	err = unmarshal(res, &r)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf("%s (body: %s)", err, res))
 	}
 	return r.Data, nil
 }
