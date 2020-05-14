@@ -3,19 +3,33 @@ package hpool
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"net/http"
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/go-resty/resty/v2"
 )
 
 var (
+	client *resty.Client
+	lock   sync.Mutex
+)
+
+func init() {
+	renewClient()
+}
+
+func renewClient() {
+	lock.Lock()
+	defer lock.Unlock()
 	client = resty.New().
 		SetHostURL("https://openapi.hpt.com").
 		SetTimeout(5 * time.Second)
-)
+}
 
 func encodeQuery(params map[string]string) string {
 	var values []string
@@ -68,6 +82,12 @@ func request(method, secretKey, path string, params map[string]string) (res []by
 		err = errors.New("unmatched http method: " + method)
 	}
 	if err != nil {
+		return
+	}
+	if resp.StatusCode() != http.StatusOK {
+		err = fmt.Errorf("status Code: %d", resp.StatusCode())
+		// fixme cloudflare 503 block, try to fix by recreating client
+		renewClient()
 		return
 	}
 	res = resp.Body()
