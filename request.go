@@ -28,7 +28,7 @@ func renewClient() {
 	defer lock.Unlock()
 	client = resty.New().
 		SetHostURL("https://openapi.hpt.com").
-		SetTimeout(5 * time.Second)
+		SetTimeout(10 * time.Second)
 }
 
 func encodeQuery(params map[string]string) string {
